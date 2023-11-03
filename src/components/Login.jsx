@@ -37,7 +37,7 @@ function Login({
           </label>
           <input
             type="text"
-            className="w-full px-3 py-2 border rounded-md text-white focus:outline-none focus:border-blue-400"
+            className="w-full px-3 py-2 border rounded-md text-black focus:outline-none focus:border-blue-400"
             placeholder="Enter your username"
             value={usernameInput}
             onChange={(e) => setUsernameInput(e.target.value)}
@@ -49,7 +49,7 @@ function Login({
           </label>
           <input
             type="password"
-            className="w-full px-3 py-2 border rounded-md text-white focus:outline-none focus:border-blue-400"
+            className="w-full px-3 py-2 border rounded-md text-black focus:outline-none focus:border-blue-400"
             placeholder="Enter your password"
             value={passwordInput}
             onChange={(e) => setPasswordInput(e.target.value)}
