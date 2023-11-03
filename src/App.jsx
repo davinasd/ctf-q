@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import Login from "./components/Login";
+import User from "./components/User";
 import Home from "./components/Home"; // Import the Home component
 
 function App() {
@@ -30,16 +31,15 @@ function App() {
             />
           }
         />
-        <Route
-          path="/home"
-          element={
-            isLoggedIn ? (
-              <Navigate to="/" />
-            ) : (
-              <Home username={username} password={password} />
-            )
-          }
-        />
+        {isLoggedIn ? (
+          <Route path="/user" element={<User />} />
+        ) : (
+          <Route
+            path="/home"
+            element={<Home username={username} password={password} />}
+          />
+        )}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

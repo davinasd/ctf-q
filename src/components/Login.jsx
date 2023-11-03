@@ -18,7 +18,7 @@ function Login({
       setIsLoggedIn(true);
       setUsername(usernameInput);
       setPassword(passwordInput);
-      navigate("/home"); // Navigate to /home on successful login
+      navigate("/user"); // Navigate to /home on successful login
     } else {
       setIsLoggedIn(false);
       setUsername(usernameInput);
