@@ -8,7 +8,7 @@ import {
 
 import Login from "./components/Login";
 import User from "./components/User";
-import Home from "./components/Home"; // Import the Home component
+import Home from "./components/Home"; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
