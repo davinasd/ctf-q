@@ -10,6 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "aws-sdk": "^2.1488.0",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "mock-aws-s3": "^4.0.2",
+    "nock": "^13.3.8",
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",

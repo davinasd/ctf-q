@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
+import bcrypt from "bcryptjs";
 
 function Login({
   username,
@@ -11,21 +12,32 @@ function Login({
 }) {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate(); 
 
-  const handleLogin = () => {
-    if (usernameInput === "' OR 1=1 --") {
+const handleLogin = async () => {
+  try {    
+    const isUsernameValid = await bcrypt.compare(
+      usernameInput,
+      "$2a$10$MkOdwxB/c7xlpSp5K/Jk.eOQFcAIfAkv8l7fktEWVpT7CW/1PKogu"
+    );
+
+    if (isUsernameValid) {
       setIsLoggedIn(true);
       setUsername(usernameInput);
       setPassword(passwordInput);
-      navigate("/user"); // Navigate to /home on successful login
+      navigate("/user");
     } else {
       setIsLoggedIn(false);
       setUsername(usernameInput);
       setPassword(passwordInput);
       navigate("/home");
     }
-  };
+  } catch (error) {
+    
+    console.error("Error during login:", error);
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

@@ -8,12 +8,12 @@ function Home({ username, password }) {
   
   useEffect(() => {
     setCookie("DBUSED", "SQLITE");
-    
   }, []); 
 
   console.log(
-    `SELECT * FROM users WHERE name = '${username}' AND password = '${password}'`
+    `SELECT * FROM users WHERE name = '${username}' AND password = '${password}' \n🍪`
   );
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -27,7 +27,7 @@ function Home({ username, password }) {
         </div>
         <Link to="/">
           {" "}
-          {/* Link to the home path */}
+          
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Try Again
           </button>

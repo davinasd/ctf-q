@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import React, { useState, useEffect } from "react";
+import bcrypt from "bcryptjs";
 
-const CppCode1 = `
+const Code = `
 #include <iostream>
 using namespace std;
 
@@ -16,40 +15,63 @@ int main() {
 }
 `;
 
-const CppCode2 = `
-// Another code snippet here
-`;
-
 const User = () => {
+  const divStyle = {
+    position: "absolute",
+    top: 60,
+    right: 0,
+    fontSize: "3px",
+    color: "white",
+  };
   const [answer1, setAnswer1] = useState("");
   const [answer2, setAnswer2] = useState("");
   const [showInput2, setShowInput2] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState("white");
 
-  const checkAnswer1 = () => {
-    if (answer1 === "4 4 4 4") {
-      setShowInput2(true);
-      console.log("")
+  const toggleBackgroundColor = () => {
+    setBackgroundColor(backgroundColor === "white" ? "black" : "white");
+  };
+
+  const checkAnswer1 = async () => {
+    try {
+      if (
+        await bcrypt.compare(
+          answer1,
+          "$2a$10$rvYvARad8jA.LYHmSEbxp.JgFYkPhAK/EEIpfiv4dRiDnSW3nM362"
+        )
+      ) {
+        setShowInput2(true);
+        console.log("c091c919ddf858b79ac4a8a3794658f0");
+      }
+    } catch (error) {
+      console.error("Error during answer1 check:", error);
     }
   };
 
-  const checkAnswer2 = () => {
-    // You can add logic to check the answer for the second question here
-    if (answer2 === "desired_answer_2") {
-      // Handle the correct answer for the second question
+  const checkAnswer2 = async () => {
+    try {
+      if (
+        await bcrypt.compare(
+          answer2,
+          "$2a$10$oryEGL8jTu722VOy1Lf7h.23vQG7dP1s107YmVvBr8CxFkjHwo2im"
+        )
+      ) {
+        console.log("FLAG IS THE ANSWER ENTERED !!!!!");
+      }
+    } catch (error) {
+      console.error("Error during answer2 check:", error);
     }
   };
 
   return (
-    <div>
-      <div className="p-4 bg-green-200 text-green-800 rounded shadow">
-        Successfully Logged In - View Sources
+    <div style={{ backgroundColor }}>
+      <div
+        className={`p-4 ${
+          backgroundColor === "white" ? "bg-green-200" : "bg-black-200"
+        } text-green-800 rounded shadow`}
+      >
+        Logged In
       </div>
-
-      <p hidden>
-        <SyntaxHighlighter language="cpp" style={dark}>
-          {CppCode1}
-        </SyntaxHighlighter>
-      </p>
 
       <div
         style={{
@@ -63,14 +85,13 @@ const User = () => {
           type="text"
           value={answer1}
           onChange={(e) => setAnswer1(e.target.value)}
-          placeholder="Enter the output"
+          placeholder="- View Sources"
         />
         <button onClick={checkAnswer1}>Submit</button>
       </div>
 
       {showInput2 && (
         <div>
-         
           <div
             style={{
               display: "flex",
@@ -82,10 +103,13 @@ const User = () => {
               type="text"
               value={answer2}
               onChange={(e) => setAnswer2(e.target.value)}
-              placeholder="Enter the answer for question 2"
+              placeholder="Enter"
             />
             <button onClick={checkAnswer2}>Submit</button>
           </div>
+          <div style={divStyle}>MD5</div>
+
+          <button onClick={toggleBackgroundColor}>!</button>
         </div>
       )}
     </div>
