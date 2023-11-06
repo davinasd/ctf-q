@@ -56,7 +56,7 @@ const User = () => {
           "$2a$10$oryEGL8jTu722VOy1Lf7h.23vQG7dP1s107YmVvBr8CxFkjHwo2im"
         )
       ) {
-        console.log("FLAG IS THE ANSWER ENTERED !!!!!");
+        console.log("FLAG ===(answer entered above).append(font used for making the website for the ctf)");
       }
     } catch (error) {
       console.error("Error during answer2 check:", error);
