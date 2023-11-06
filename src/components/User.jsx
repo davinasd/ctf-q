@@ -1,20 +1,6 @@
 import React, { useState, useEffect } from "react";
 import bcrypt from "bcryptjs";
 
-const Code = `
-#include <iostream>
-using namespace std;
-
-int main() {
-    int arr[] = {1, 2, 3, 4, 5};
-    int* ptr = arr;
-
-    cout << *(ptr + 3) << " " << ptr[3] << " " << 3[arr] << " " << *(3 + ptr);
-
-    return 0;
-}
-`;
-
 const User = () => {
   const divStyle = {
     position: "absolute",
@@ -85,7 +71,7 @@ const User = () => {
           type="text"
           value={answer1}
           onChange={(e) => setAnswer1(e.target.value)}
-          placeholder="- View Sources"
+          placeholder="- View Element"
         />
         <button onClick={checkAnswer1}>Submit</button>
       </div>
