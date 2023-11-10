@@ -1,81 +1,121 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import bcrypt from "bcryptjs";
+import { useCookies } from "react-cookie";
 
-function Login({
-  username,
-  password,
-  isLoggedIn,
-  setIsLoggedIn,
-  setUsername,
-  setPassword,
-}) {
-  const [usernameInput, setUsernameInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
-  const navigate = useNavigate(); 
 
-const handleLogin = async () => {
-  try {    
-    const isUsernameValid = await bcrypt.compare(
-      usernameInput,
-      "$2a$10$MkOdwxB/c7xlpSp5K/Jk.eOQFcAIfAkv8l7fktEWVpT7CW/1PKogu"
-    );
+const Login = ({isLoggedIn,setIsLoggedIn}) => {
+    const [cookies, setCookie, removeCookie] = useCookies(["DBUSED"]);
+ 
+    useEffect(() => {
+      setCookie("DBUSED", "MYSQL");
+    }, []); 
+    console.log("🍪");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+   const navigate = useNavigate();
 
-    if (isUsernameValid) {
-      setIsLoggedIn(true);
-      setUsername(usernameInput);
-      setPassword(passwordInput);
-      navigate("/user");
-    } else {
-      setIsLoggedIn(false);
-      setUsername(usernameInput);
-      setPassword(passwordInput);
-      navigate("/home");
+     const handleLogin = async () => {
+       try {
+         const loginApiUrl =
+           "http://ec2-3-111-37-149.ap-south-1.compute.amazonaws.com:3000/login";
+         const loginResponse = await fetch(loginApiUrl, {
+           method: "POST",
+           headers: {
+             "Content-Type": "application/json",
+           },
+           body: JSON.stringify({ username, password }),
+         });
+
+         if (loginResponse.ok) {
+           setIsLoggedIn(true);
+           console.log(isLoggedIn);
+
+           
+          navigate("/user");
+         } else {
+           console.error("Login failed");
+         }
+       } catch (error) {
+         console.error("Error during login:", error);
+       }
+     };
+
+  const handleSearch = async () => {
+    try {
+      const searchApiUrl = "http://3.111.37.149:3000/search";
+      const searchResponse = await fetch(searchApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userInput: searchInput }),
+      });
+
+      if (searchResponse.ok) {
+        const searchData = await searchResponse.json();
+        
+        console.log("Search successful:", searchData);
+      } else {
+        
+        console.error("Search failed");
+      }
+    } catch (error) {
+      console.error("Error during search:", error);
     }
-  } catch (error) {
-    
-    console.error("Error during login:", error);
-  }
-};
-
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-semibold mb-4">Login</h1>
-        <div className="mb-4">
-          <label className="block text-gray-600 text-sm font-medium">
-            Username
-          </label>
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">Search</h2>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-600">
+          Search:
           <input
             type="text"
-            className="w-full px-3 py-2 border rounded-md text-black focus:outline-none focus:border-blue-400"
-            placeholder="Enter your username"
-            value={usernameInput}
-            onChange={(e) => setUsernameInput(e.target.value)}
+            className="mt-1 p-2 border rounded-md w-full"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-600 text-sm font-medium">
-            Password
-          </label>
+        </label>
+      </div>
+      <button
+        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+        onClick={handleSearch}
+      >
+        ENTER HERE
+      </button>
+      <h1 className="text-2xl font-bold mt-8 mb-4">Login</h1>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-600">
+          Username:
+          <input
+            type="text"
+            className="mt-1 p-2 border rounded-md w-full"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
+      </div>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-600">
+          Password:
           <input
             type="password"
-            className="w-full px-3 py-2 border rounded-md text-black focus:outline-none focus:border-blue-400"
-            placeholder="Enter your password"
-            value={passwordInput}
-            onChange={(e) => setPasswordInput(e.target.value)}
+            className="mt-1 p-2 border rounded-md w-full"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-        <button
-          className="bg-blue-500 text-white rounded-md py-2 px-4 hover-bg-blue-600 focus:outline-none"
-          onClick={handleLogin}
-        >
-          Login
-        </button>
+        </label>
       </div>
+      <button
+        className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+        onClick={handleLogin}
+      >
+        Login
+      </button>
     </div>
   );
-}
+};
 
 export default Login;

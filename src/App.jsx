@@ -22,12 +22,8 @@ function App() {
           path="/"
           element={
             <Login
-              isLoggedIn={isLoggedIn}
-              username={username}
-              password={password}
+              isLoggedIn={isLoggedIn} 
               setIsLoggedIn={setIsLoggedIn}
-              setUsername={setUsername}
-              setPassword={setPassword}
             />
           }
         />
@@ -35,8 +31,8 @@ function App() {
           <Route path="/user" element={<User />} />
         ) : (
           <Route
-            path="/home"
-            element={<Home username={username} password={password} />}
+            path="/"
+            element={<Login />}
           />
         )}
         <Route path="*" element={<Navigate to="/" replace />} />

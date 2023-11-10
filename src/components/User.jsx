@@ -42,7 +42,9 @@ const User = () => {
           "$2a$10$oryEGL8jTu722VOy1Lf7h.23vQG7dP1s107YmVvBr8CxFkjHwo2im"
         )
       ) {
-        console.log("FLAG ===(answer entered above).append(font used for making the website for the ctf)");
+        console.log(
+          "(answer entered above).append(the font used for making the platform for ctf)}"
+        );
       }
     } catch (error) {
       console.error("Error during answer2 check:", error);
@@ -71,7 +73,7 @@ const User = () => {
           type="text"
           value={answer1}
           onChange={(e) => setAnswer1(e.target.value)}
-          placeholder="- View Element"
+          placeholder="Enter the output"
         />
         <button onClick={checkAnswer1}>Submit</button>
       </div>
@@ -95,7 +97,12 @@ const User = () => {
           </div>
           <div style={divStyle}>MD5</div>
 
-          <button onClick={toggleBackgroundColor}>!</button>
+          <button
+            onClick={toggleBackgroundColor}
+            style={{ fontSize: "100px", color: "white" }}
+          >
+            !
+          </button>
         </div>
       )}
     </div>
