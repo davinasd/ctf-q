@@ -1,47 +1,48 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
+const Login = ({ isLoggedIn, setIsLoggedIn }) => {
+  const [cookies, setCookie, removeCookie] = useCookies(["DBUSED"]);
 
-const Login = ({isLoggedIn,setIsLoggedIn}) => {
-    const [cookies, setCookie, removeCookie] = useCookies(["DBUSED"]);
- 
-    useEffect(() => {
-      setCookie("DBUSED", "MYSQL");
-    }, []); 
-    console.log("🍪");
+  useEffect(() => {
+    setCookie("DBUSED", "MYSQL");
+  }, []);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [searchInput, setSearchInput] = useState("");
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-     const handleLogin = async () => {
-       try {
-         const loginApiUrl =
-           "http://ec2-3-111-37-149.ap-south-1.compute.amazonaws.com:3000/login";
-         const loginResponse = await fetch(loginApiUrl, {
-           method: "POST",
-           headers: {
-             "Content-Type": "application/json",
-           },
-           body: JSON.stringify({ username, password }),
-         });
+  const handleLogin = async () => {
+    console.log("SELECT * FROM users WHERE username = ? AND password = ?");
+    try {
+      const loginApiUrl =
+        "http://ec2-3-111-37-149.ap-south-1.compute.amazonaws.com:3000/login";
+      const loginResponse = await fetch(loginApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-         if (loginResponse.ok) {
-           setIsLoggedIn(true);
-           console.log(isLoggedIn);
+      if (loginResponse.ok) {
+        setIsLoggedIn(true);
+        console.log(isLoggedIn);
 
-           
-          navigate("/user");
-         } else {
-           console.error("Login failed");
-         }
-       } catch (error) {
-         console.error("Error during login:", error);
-       }
-     };
+        navigate("/user");
+      } else {
+        console.error("Login failed");
+        
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+     
+    }
+  };
 
   const handleSearch = async () => {
+    console.log(`SELECT * FROM users WHERE username = '${searchInput}' \n🍪`);
     try {
       const searchApiUrl = "http://3.111.37.149:3000/search";
       const searchResponse = await fetch(searchApiUrl, {
@@ -54,10 +55,9 @@ const Login = ({isLoggedIn,setIsLoggedIn}) => {
 
       if (searchResponse.ok) {
         const searchData = await searchResponse.json();
-        
+
         console.log("Search successful:", searchData);
       } else {
-        
         console.error("Search failed");
       }
     } catch (error) {
@@ -67,7 +67,7 @@ const Login = ({isLoggedIn,setIsLoggedIn}) => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Search</h2>
+      <h2 className="text-2xl font-bold mb-4">👨‍⚕️💉</h2>
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-600">
           Search:
