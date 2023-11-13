@@ -33,11 +33,9 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
         navigate("/user");
       } else {
         console.error("Login failed");
-        
       }
     } catch (error) {
       console.error("Error during login:", error);
-     
     }
   };
 
