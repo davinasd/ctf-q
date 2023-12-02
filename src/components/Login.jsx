@@ -18,8 +18,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleLogin = async () => {
     console.log("SELECT * FROM users WHERE username = ? AND password = ?");
     try {
-      const loginApiUrl =
-        "http://ec2-3-111-37-149.ap-south-1.compute.amazonaws.com:3000/login";
+      const loginApiUrl = "http://35.154.94.22:3000/login";
       const loginResponse = await fetch(loginApiUrl, {
         method: "POST",
         headers: {
@@ -44,7 +43,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleSearch = async () => {
     console.log(`SELECT * FROM users WHERE username = '${searchInput}' \n🍪`);
     try {
-      const searchApiUrl = "http://3.111.37.149:3000/search";
+      const searchApiUrl = "http://35.154.94.22:3000//search";
       const searchResponse = await fetch(searchApiUrl, {
         method: "POST",
         headers: {
