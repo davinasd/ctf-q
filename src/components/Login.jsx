@@ -43,7 +43,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
   const handleSearch = async () => {
     console.log(`SELECT * FROM users WHERE username = '${searchInput}' \n🍪`);
     try {
-      const searchApiUrl = "http://35.154.94.22:3000//search";
+      const searchApiUrl = "http://35.154.94.22:3000/search";
       const searchResponse = await fetch(searchApiUrl, {
         method: "POST",
         headers: {
