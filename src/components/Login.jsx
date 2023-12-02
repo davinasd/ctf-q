@@ -5,8 +5,10 @@ import { useCookies } from "react-cookie";
 const Login = ({ isLoggedIn, setIsLoggedIn }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["DBUSED"]);
 
+
   useEffect(() => {
     setCookie("DBUSED", "MYSQL");
+    console.log("{thestartofanewjourney");
   }, []);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
