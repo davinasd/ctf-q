@@ -8,7 +8,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
 
   useEffect(() => {
     setCookie("DBUSED", "MYSQL");
-    console.log("{thestartofanewjourney");
+    console.log("ritctf{thestartofanewjourney");
   }, []);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
